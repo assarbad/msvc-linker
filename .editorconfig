@@ -1,0 +1,51 @@
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+[*.{h,hpp,c,cpp,cc,cxx}]
+charset = utf-8
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+
+[*.md]
+charset = utf-8
+trim_trailing_whitespace = false
+insert_final_newline = true
+
+[*.cmd]
+charset = latin1
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+
+[GNUmakefile]
+charset = utf-8
+indent_style = tab
+indent_size = 4
+insert_final_newline = true
+
+[*.props]
+charset = utf-8-bom
+indent_style = space
+indent_size = 2
+
+[*.sln]
+charset = utf-8-bom
+indent_style = tab
+indent_size = 4
+
+[*.slnf]
+charset = utf-8
+
+[*.vcxproj]
+charset = utf-8
+indent_style = space
+indent_size = 2
+
+[*.vcxproj.filters]
+charset = utf-8-bom
+indent_style = space
+indent_size = 2

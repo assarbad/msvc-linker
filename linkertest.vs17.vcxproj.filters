@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Special Files">
+      <UniqueIdentifier>{947007C5-5FF9-3D40-237B-F1397C1BEA90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{852FCA6B-DBF7-8BDC-9F7B-F0004FB30030}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="premake4.lua">
+      <Filter>Special Files</Filter>
+    </None>
+    <None Include="project.early.props" />
+    <None Include="project.late.props" />
+    <None Include=".editorconfig" />
+    <None Include=".clang-format">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include=".gitignore">
+      <Filter>Special Files</Filter>
+    </None>
+    <None Include="linker_asm.asm">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="linker_cplusplus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="linker_c.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
