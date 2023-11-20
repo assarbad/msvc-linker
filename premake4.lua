@@ -88,6 +88,7 @@ do
         if indent == 1 then
             if msg == [[<ImportGroup Label="ExtensionSettings">]] then
                 orig_p(indent, msg, first, ...) -- pass through original line
+                orig_p(indent+1, [[<Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />]]) -- ASM
                 orig_p(indent, [[</ImportGroup>]])
                 orig_p(indent, [[<ImportGroup Label="PropertySheets">]])
                 orig_p(indent+1, [[<Import Project="$(SolutionDir)project.early.props" Condition="exists('$(SolutionDir)project.early.props')" Label="ProjectSpecific (solution/early)" />]])
@@ -108,6 +109,7 @@ do
                 orig_p(indent+1, [[<Import Project="$(ProjectDir)project.targets" Condition="exists('$(ProjectDir)project.targets') AND '$(SolutionDir)' != '$(ProjectDir)'" Label="Project-specific (local/targets)" />]])
                 orig_p(indent, [[</ImportGroup>]])
                 orig_p(indent, msg, first, ...) -- pass through original line
+                orig_p(indent+1, [[<Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />]]) -- ASM
                 return true
             end
         end

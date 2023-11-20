@@ -21,9 +21,6 @@
     <None Include=".gitignore">
       <Filter>Special Files</Filter>
     </None>
-    <None Include="linker_asm.asm">
-      <Filter>Source Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="linker_cplusplus.cpp">
@@ -32,5 +29,10 @@
     <ClCompile Include="linker_c.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <MASM Include="linker_asm.asm">
+      <Filter>Source Files</Filter>
+    </MASM>
   </ItemGroup>
 </Project>
