@@ -88,7 +88,9 @@ do
         if indent == 1 then
             if msg == [[<ImportGroup Label="ExtensionSettings">]] then
                 orig_p(indent, msg, first, ...) -- pass through original line
-                orig_p(indent+1, [[<Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />]]) -- ASM
+                if not table.isempty(premake.vstudio.vc2010.getfilegroup(prj, "MASM")) then
+                    orig_p(indent+1, [[<Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />]]) -- ASM
+                end
                 orig_p(indent, [[</ImportGroup>]])
                 orig_p(indent, [[<ImportGroup Label="PropertySheets">]])
                 orig_p(indent+1, [[<Import Project="$(SolutionDir)project.early.props" Condition="exists('$(SolutionDir)project.early.props')" Label="ProjectSpecific (solution/early)" />]])
@@ -109,7 +111,9 @@ do
                 orig_p(indent+1, [[<Import Project="$(ProjectDir)project.targets" Condition="exists('$(ProjectDir)project.targets') AND '$(SolutionDir)' != '$(ProjectDir)'" Label="Project-specific (local/targets)" />]])
                 orig_p(indent, [[</ImportGroup>]])
                 orig_p(indent, msg, first, ...) -- pass through original line
-                orig_p(indent+1, [[<Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />]]) -- ASM
+                if not table.isempty(premake.vstudio.vc2010.getfilegroup(prj, "MASM")) then
+                    orig_p(indent+1, [[<Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />]]) -- ASM
+                end
                 return true
             end
         end
@@ -363,6 +367,71 @@ do
         end
         return ret
     end
+
+    -- Little helper to recognize .asm files
+    path.isasmfile = function(fname)
+        local extensions = { ".asm" }
+        local ext = path.getextension(fname):lower()
+        return table.contains(extensions, ext)
+    end
+
+    -- Replace original function to also handle .asm files
+    premake.vstudio.vc2010.getfilegroup = function(prj, group)
+        local sortedfiles = prj.vc2010sortedfiles
+        if not sortedfiles then
+            sortedfiles = {
+                ClCompile = {},
+                ClInclude = {},
+                MASM = {},
+                None = {},
+                ResourceCompile = {},
+            }
+
+            for file in premake.project.eachfile(prj) do
+                if path.iscppfile(file.name) then
+                    table.insert(sortedfiles.ClCompile, file)
+                elseif path.iscppheader(file.name) then
+                    table.insert(sortedfiles.ClInclude, file)
+                elseif path.isresourcefile(file.name) then
+                    table.insert(sortedfiles.ResourceCompile, file)
+                elseif path.isasmfile(file.name) then
+                    table.insert(sortedfiles.MASM, file)
+                else
+                    table.insert(sortedfiles.None, file)
+                end
+            end
+
+            -- Cache the sorted files; they are used several places
+            prj.vc2010sortedfiles = sortedfiles
+        end
+
+        return sortedfiles[group]
+    end
+
+    -- Add support for .asm files in the project file
+    premake.vstudio.vc2010.files = function(prj)
+        local vc2010 = premake.vstudio.vc2010
+        vc2010.simplefilesgroup(prj, "ClInclude")
+        vc2010.compilerfilesgroup(prj)
+        vc2010.simplefilesgroup(prj, "None")
+        vc2010.simplefilesgroup(prj, "MASM")
+        vc2010.simplefilesgroup(prj, "ResourceCompile")
+    end
+
+    -- Add support for .asm files in the filters
+    premake.vstudio.vc2010.generate_filters = function(prj)
+        io.indent = "  "
+        local vc2010 = premake.vstudio.vc2010
+        vc2010.header()
+            vc2010.filteridgroup(prj)
+            vc2010.filefiltergroup(prj, "None")
+            vc2010.filefiltergroup(prj, "ClInclude")
+            vc2010.filefiltergroup(prj, "ClCompile")
+            vc2010.filefiltergroup(prj, "ResourceCompile")
+            vc2010.filefiltergroup(prj, "MASM")
+        _p('</Project>')
+    end
+
 
     -- Remove an option altogether or some otherwise accepted values for that option
     local function remove_allowed_optionvalues(option, values_toremove)
