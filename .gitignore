@@ -5,3 +5,4 @@ obj/
 hgid.h
 **.user
 **.bak
+BuildCommandLines-*.log

@@ -21,6 +21,7 @@ function console_proj(name, extra_files)
         kind            ("ConsoleApp")
         flags           {"Unicode", "WinMain", "NoPCH", "NoMinimalRebuild", "Symbols", "ExtraWarnings",}
         defines         {"WIN32", "_CONSOLE",}
+        --linkoptions     {"/nodefaultlib"}
 
         files
         {
@@ -34,7 +35,7 @@ function console_proj(name, extra_files)
         {
             ["Header Files/*"] = { "*.h" },
             ["Source Files/*"] = { "*.cpp", "*.c", "*.asm", },
-            ["Special Files/*"] = { "**.cmd", "premake4.lua", "**.manifest", ".*ignore" },
+            ["Special Files/*"] = { "**.cmd", "premake4.lua", "**.manifest", ".*ignore", ".clang-format", ".editorconfig", "**.props" },
         }
 
         configuration {"Debug"}

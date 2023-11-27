@@ -12,11 +12,17 @@
     <None Include="premake4.lua">
       <Filter>Special Files</Filter>
     </None>
-    <None Include="project.early.props" />
-    <None Include="project.late.props" />
-    <None Include=".editorconfig" />
+    <None Include="project.early.props">
+      <Filter>Special Files</Filter>
+    </None>
+    <None Include="project.late.props">
+      <Filter>Special Files</Filter>
+    </None>
+    <None Include=".editorconfig">
+      <Filter>Special Files</Filter>
+    </None>
     <None Include=".clang-format">
-      <Filter>Source Files</Filter>
+      <Filter>Special Files</Filter>
     </None>
     <None Include=".gitignore">
       <Filter>Special Files</Filter>

@@ -20,7 +20,7 @@
 	<ItemDefinitionGroup>
 		<ClCompile>
 			<AdditionalOptions Condition="'$(PlatformToolset)' != 'ClangCL'">%(AdditionalOptions) /d1trimfile:"$(MSBuildThisFileDirectory)\"</AdditionalOptions>
-			<AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /utf-8 /GS /Brepro</AdditionalOptions>
+			<AdditionalOptions>%(AdditionalOptions) /Zc:__cplusplus /utf-8 /Brepro</AdditionalOptions>
 		</ClCompile>
 		<Link Condition="'$(ConfigurationType)' != 'StaticLibrary'">
 			<AdditionalOptions>%(AdditionalOptions) /Brepro</AdditionalOptions>
@@ -42,7 +42,7 @@
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
 		<ClCompile>
-			<AdditionalOptions>%(AdditionalOptions) /Oi /Os /Gy</AdditionalOptions>
+			<AdditionalOptions>%(AdditionalOptions) /Oi /Os</AdditionalOptions>
 			<Optimization>Full</Optimization>
 			<FunctionLevelLinking>true</FunctionLevelLinking>
 			<IntrinsicFunctions>true</IntrinsicFunctions>
@@ -63,7 +63,8 @@
 	<ItemDefinitionGroup>
 		<ClCompile>
 			<WarningLevel>Level4</WarningLevel>
-			<SDLCheck>true</SDLCheck>
+			<SDLCheck>false</SDLCheck>
+			<BufferSecurityCheck>false</BufferSecurityCheck>
 			<ConformanceMode>true</ConformanceMode>
 			<MinimalRebuild>false</MinimalRebuild>
 			<PreprocessorDefinitions>_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING;_ALLOW_RTCc_IN_STL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -76,6 +77,7 @@
 			<AdditionalOptions>%(AdditionalOptions) /pdbaltpath:%_PDB% /dynamicbase /nxcompat /verbose</AdditionalOptions>
 			<GenerateMapFile>true</GenerateMapFile>
 			<MapExports>true</MapExports>
+			<IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
 		</Link>
 	</ItemDefinitionGroup>
 	<ItemDefinitionGroup Condition="false">
