@@ -74,15 +74,15 @@
 		</ClCompile>
 		<Link Condition="'$(ConfigurationType)' != 'StaticLibrary'">
 			<EnableUAC>false</EnableUAC>
-			<AdditionalOptions>%(AdditionalOptions) /pdbaltpath:%_PDB% /dynamicbase /nxcompat /verbose</AdditionalOptions>
+			<AdditionalOptions>%(AdditionalOptions) /pdbaltpath:%_PDB% /dynamicbase /nxcompat /verbose /emittoolversioninfo:no</AdditionalOptions>
 			<GenerateMapFile>true</GenerateMapFile>
 			<MapExports>true</MapExports>
 			<IgnoreAllDefaultLibraries>true</IgnoreAllDefaultLibraries>
 		</Link>
 	</ItemDefinitionGroup>
-	<ItemDefinitionGroup Condition="false">
+	<ItemDefinitionGroup Condition="true">
 		<ClCompile>
-			<AdditionalOptions>%(AdditionalOptions) /Bt+</AdditionalOptions>
+			<AdditionalOptions Condition="false">%(AdditionalOptions) /Bt+</AdditionalOptions>
 		</ClCompile>
 		<Link Condition="'$(ConfigurationType)' != 'StaticLibrary'">
 			<AdditionalOptions>%(AdditionalOptions) /time+</AdditionalOptions>
